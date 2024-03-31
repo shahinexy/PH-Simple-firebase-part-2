@@ -11,6 +11,10 @@ const Register = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const passowrd = e.target.password.value;
+    const check = e.target.check.checked
+
+    setRegisterError("");
+    setSuccess("");
 
     if (passowrd.length < 6) {
       setRegisterError("Password should be at least 6 characters or longer");
@@ -21,9 +25,10 @@ const Register = () => {
       );
       return;
     }
-
-    setRegisterError("");
-    setSuccess("");
+    else if(!check){
+      setRegisterError('Plaese accept our trams and condition')
+      return;
+    }
 
     createUserWithEmailAndPassword(auth, email, passowrd)
       .then((result) => {
@@ -41,7 +46,7 @@ const Register = () => {
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
+            <h1 className="text-5xl font-bold">Register now!</h1>
             <p className="py-6">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
@@ -81,6 +86,10 @@ const Register = () => {
                     Forgot password?
                   </a>
                 </label>
+              </div>
+              <div>
+                <input type="checkbox" name="check" id="trams" />
+                <label htmlFor="trams">Accept our trams and condition</label>
               </div>
               <div className="form-control mt-6">
                 <button className="btn btn-primary">Login</button>
