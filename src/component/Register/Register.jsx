@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [registerError, setRegisterError] = useState("");
@@ -81,19 +82,15 @@ const Register = () => {
                 <span onClick={()=> setShowPass(!showPass)} className="border p-1 text-center cursor-pointer">
                   {showPass ? 'Hide': 'Show'}
                 </span>
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
               </div>
               <div>
                 <input type="checkbox" name="check" id="trams" />
                 <label htmlFor="trams">Accept our trams and condition</label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Register</button>
               </div>
+              <p>Already have an account? Pleace <Link to={'/login'}><span className="underline">Login</span></Link></p>
             </form>
             {registerError && <p className="text-red-500">{registerError}</p>}
             {success && <p className="text-green-500">{success}</p>}
