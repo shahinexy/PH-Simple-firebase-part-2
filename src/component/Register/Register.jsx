@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -35,6 +35,12 @@ const Register = () => {
       .then((result) => {
         console.log(result.user);
         setSuccess("Successfully Login");
+
+        //update profile get user name
+
+        // send email verification msg
+        sendEmailVerification(result.user)
+        .then(()=> alert('An Email verification sent to your email'))
       })
       .catch((error) => {
         console.log(error.message);
