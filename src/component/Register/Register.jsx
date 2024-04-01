@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import auth from "../../firebase.config";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -10,6 +10,7 @@ const Register = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
     const email = e.target.email.value;
     const passowrd = e.target.password.value;
     const check = e.target.check.checked
@@ -37,6 +38,11 @@ const Register = () => {
         setSuccess("Successfully Login");
 
         //update profile get user name
+        updateProfile(result.user, {
+          displayName: name,
+        })
+        .then(()=> console.log('porfile updated'))
+        .catch()
 
         // send email verification msg
         sendEmailVerification(result.user)
@@ -62,6 +68,18 @@ const Register = () => {
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 p-5">
             <form onSubmit={handleLogin} className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="name"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
